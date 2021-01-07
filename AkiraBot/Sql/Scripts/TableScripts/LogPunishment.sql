@@ -1,0 +1,2 @@
+﻿INSERT INTO [PunishmentLog] ([PunisherName], [PunisherID], [PunishedName], [PunishedID], [Action], [Reason], [Duration], [PunishmentDate]) 
+VALUES (@punisherName, @punisherID, @punishedName, @punishedID, @action, @reason, @duration, GetDate())

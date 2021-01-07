@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AkiraBot.Models.AkiraPunishmentModel;
 
 namespace AkiraBot.Sql
 {
@@ -18,7 +19,8 @@ namespace AkiraBot.Sql
 
     public enum AkiraSqlScripts
     { 
-      GetConfiguration
+      GetConfiguration,
+      LogPunishment
     }
 
     #endregion
@@ -67,7 +69,22 @@ namespace AkiraBot.Sql
 
     public static bool LogPunishment(AkiraPunishmentModel nModel)
     { 
-      return false;
+      string cmdText = GetSqlScript(AkiraSqlScripts.LogPunishment);
+
+      using(SqlCommand cmd = new SqlCommand(cmdText, SqlConn))
+      { 
+        cmd.Parameters.AddWithValue("punisherName", nModel.Sender.Username);
+        cmd.Parameters.AddWithValue("punisherID", nModel.Sender.Id.ToString());
+
+        cmd.Parameters.AddWithValue("punishedName", nModel.Target.Username);
+        cmd.Parameters.AddWithValue("punishedID", nModel.Target.Id);
+
+        cmd.Parameters.AddWithValue("action", Enum.GetName(typeof(PunishmentType), nModel.Punishment));
+        cmd.Parameters.AddWithValue("reason", string.IsNullOrEmpty(nModel.Reason) ? DBNull.Value : nModel.Reason);
+        cmd.Parameters.AddWithValue("duration", nModel.RevertTime.HasValue ? nModel.RevertTime.Value : DBNull.Value);
+
+        return cmd.ExecuteNonQuery() > 0;
+      }
     }
 
     #endregion
@@ -80,6 +97,8 @@ namespace AkiraBot.Sql
       {
         case AkiraSqlScripts.GetConfiguration:
           return File.ReadAllText(k_DefaultSqlFolderLoc + "GetConfig.sql"); // need to test
+        case AkiraSqlScripts.LogPunishment:
+          return File.ReadAllText(k_DefaultSqlFolderLoc + "LogPunishment.sql");
       }
       return "";
     }

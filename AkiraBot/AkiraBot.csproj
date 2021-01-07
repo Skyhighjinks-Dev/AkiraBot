@@ -21,7 +21,7 @@
     <Folder Include="Games\Models\" />
     <Folder Include="Games\Commands\" />
     <Folder Include="Backups\" />
-    <Folder Include="Logs\UnsentCommands\" />
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 </Project>

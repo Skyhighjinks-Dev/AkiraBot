@@ -1,6 +1,8 @@
-﻿using Discord.WebSocket;
+﻿using AkiraBot.Sql;
+using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,9 +44,9 @@ namespace AkiraBot.Models
     
     private void Log()
     { 
-      bool isSuccess = false;
-
-      
+      // If this was successful it's sorted
+      if(AkiraSql.LogPunishment(this))
+        return;      
     }
   }
 }

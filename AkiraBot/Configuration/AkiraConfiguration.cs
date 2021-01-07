@@ -13,12 +13,18 @@ namespace AkiraBot.Configuration
     public static bool AkiraPerferStaffId;
     public static List<AkiraStaffRole> StaffMappings;
 
+    public static bool SendKickedUsersMessage;
+    public static string AkiraDiscordInviteLink;
+
     public static void Initialize()
     { 
       string akiraDbConnStr = AkiraConversion.ConvertFromBase64(ConfigurationManager.ConnectionStrings["AkiraDb"].ConnectionString);
       AkiraSqlConnStr = string.IsNullOrEmpty(akiraDbConnStr) ? string.Empty : akiraDbConnStr;
 
       AkiraPerferStaffId = ConfigurationManager.AppSettings["PerferIdOverNames"].ToLower() == "true";
+
+      SendKickedUsersMessage = ConfigurationManager.AppSettings["SendMessageToUserWhenKicked"].ToLower() == "true";
+      AkiraDiscordInviteLink = ConfigurationManager.AppSettings["PermenantInviteLink"];
 
       InitializeStaffMapping();
     }
