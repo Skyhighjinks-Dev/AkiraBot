@@ -1,5 +1,6 @@
 ﻿using AkiraBot.Configuration;
 using AkiraBot.Sql;
+using AkiraBot.Threading;
 using System;
 
 namespace AkiraBot.Startup
@@ -10,6 +11,7 @@ namespace AkiraBot.Startup
     {
       AkiraConfiguration.Initialize();
       AkiraSql.Initialize();
+      AkiraThread.Initialize();
     }
   }
 }

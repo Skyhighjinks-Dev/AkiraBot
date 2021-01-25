@@ -96,7 +96,7 @@ namespace AkiraBot.Sql
       switch (nOption)
       {
         case AkiraSqlScripts.GetConfiguration:
-          return File.ReadAllText(k_DefaultSqlFolderLoc + "GetConfig.sql"); // need to test
+          return File.ReadAllText(k_DefaultSqlFolderLoc + "GetConfig.sql");
         case AkiraSqlScripts.LogPunishment:
           return File.ReadAllText(k_DefaultSqlFolderLoc + "LogPunishment.sql");
       }

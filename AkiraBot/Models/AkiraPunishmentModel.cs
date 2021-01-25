@@ -13,7 +13,8 @@ namespace AkiraBot.Models
   {
     public enum PunishmentType
     { 
-      KICK
+      KICK,
+      BAN
     }
 
     public SocketGuildUser Sender;
@@ -39,7 +40,7 @@ namespace AkiraBot.Models
       if(nRevertTime.HasValue)
         this.RevertTime = nRevertTime.Value;
 
-      Log();
+      this.Log();
     }
     
     private void Log()
